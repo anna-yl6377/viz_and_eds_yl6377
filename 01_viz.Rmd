@@ -26,7 +26,7 @@ ggplot(weather_df, aes(x=tmin, y=tmax))+
 ```
 I always like the daraframe first
 ```{r}
-ggp_temp_scatterplot |>
+ggp_temp_scatterplot<-
 weather_df |>
   ggplot(aes(x=tmin, y=tmax)) +
   geom_point()
