@@ -1,0 +1,79 @@
+---
+title: "visualization"
+output: html_document
+date: "2026-10-01"
+---
+
+```{r}
+library(tidyverse)
+library(ggridges)
+
+library(p8105.datasets)
+data("weather_df")
+```
+
+Now we have everything we need!
+
+```{r}
+weather_df
+```
+
+Let's make a scatterplot!
+
+```{r}
+ggplot(weather_df, aes(x=tmin, y=tmax))+
+  geom_point()
+```
+I always like the daraframe first
+```{r}
+ggp_temp_scatterplot |>
+weather_df |>
+  ggplot(aes(x=tmin, y=tmax)) +
+  geom_point()
+
+ggp_temp_scatterplot
+```
+Let's make this a bit fancier...
+```{r}
+weather_df |>
+  ggplot(aes(x=tmin, y=tmax,color=name))+
+  geom_point(alpha = .25)+
+  geom_smooth(se = FALSE)
+```
+The aesthetic are up to you.
+not necessarily a scatterplot
+Show faceting
+
+```{r}
+weather_df |>
+  ggplot(aes(x=tmin,y=tmax,color=name))+
+  geom_point(alpha=.5)+
+  facet_grid(. ~ name)
+```
+
+```{r}
+weather_df |>
+  ggplot(aes(x=tmin,y=tmax,color=name))+
+  geom_point(alpha=.5)+
+  facet_grid(cols=vars(name))
+```
+Let's look at something else.
+
+```{r}
+weather_df |>
+  ggplot(aes(x = date,y = tmax,color = name))+
+  geom_point(alpha = .5)+
+  facet_grid(. ~ name)
+```
+make a plot of central park tmax v tmin only, and convert temperatures to fahrenheit.
+
+```{r}
+weather_df |>
+  filter(name=="CentralPark_NY") |>
+  mutate(
+    tmax = tmax *(9/5) + 32,
+    tmin = tmin * (9/5) + 32
+  )|>
+  ggplot(aes(x=tmin, y=tmax))+
+  geom_point()
+```
